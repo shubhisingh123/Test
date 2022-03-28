@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: radix_app_deployment
+  name: radixappdeployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: radix_label
+      app: radixlabel
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -15,12 +15,12 @@ spec:
   minReadySeconds: 30
   template:
     metadata:
-      name: radix_pod
+      name: radixpod
       labels:
-        app: radix_label
+        app: radixlabel
     spec:
       containers:
-      - name: radix_container
+      - name: radixcontainer
         image: ""
         ports:
         - containerPort: 8080
@@ -29,10 +29,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: radix_service
+  name: radixservice
 spec:
   type: NodePort
   selector:
-    app: radix_label
+    app: radixlabel
   ports:
   - port: 80
