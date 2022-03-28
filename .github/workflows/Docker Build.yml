@@ -49,7 +49,7 @@ jobs:
         uses: Azure/k8s-deploy@v3.0
         with:
           action: deploy
-          manifests: Test/k8.yml
+          manifests: k8.yml
           images: |
             radixacr.azurecr.io/build2:${{ github.sha }}
           imagepullsecrets: |
