@@ -21,8 +21,8 @@ jobs:
           password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
 
       - run: |
-          docker build . -t radixacr.azurecr.io/build1:${{ github.sha }}
-          docker push radixacr.azurecr.io/build1:${{ github.sha }}
+          docker build . -t radixacr.azurecr.io/build2:${{ github.sha }}
+          docker push radixacr.azurecr.io/build2:${{ github.sha }}
       
       - name: Azure login
         uses: azure/login@v1.4.3
@@ -49,9 +49,9 @@ jobs:
         uses: Azure/k8s-deploy@v3.0
         with:
           action: deploy
-          manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
+          manifests: Test/k8.yml
           images: |
-            radixacr.azurecr.io/build1:${{ github.sha }}
+            radixacr.azurecr.io/build2:${{ github.sha }}
           imagepullsecrets: |
             ${{ env.IMAGE_PULL_SECRET_NAME }}
           
