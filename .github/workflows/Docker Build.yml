@@ -2,9 +2,11 @@ name: Build a Docker image and Push it to ACR
 
 on:
   push:
-    branches: [ main ]
+    paths:
+    - 'Test/index.html'
   pull_request:
-    branches: [ main ]
+    paths: 
+    - 'Test/index.html'
 
   workflow_dispatch:
 
