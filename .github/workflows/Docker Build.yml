@@ -43,7 +43,7 @@ jobs:
           container-registry-url: radixacr.azurecr.io
           container-registry-username: RadixACR
           container-registry-password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
-          secret-name: Shubham
+          secret-name: radix
           
       - name: Deploys application
         uses: Azure/k8s-deploy@v3.0
@@ -53,6 +53,6 @@ jobs:
           images: |
             radixacr.azurecr.io/build2:${{ github.sha }}
           imagepullsecrets: |
-            Shubham
+            radix
           
  
