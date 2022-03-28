@@ -21,8 +21,8 @@ jobs:
           password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
 
       - run: |
-          docker build . -t radixacr.azurecr.io/build2:${{ github.sha }}
-          docker push radixacr.azurecr.io/build2:${{ github.sha }}
+#          docker build . -t radixacr.azurecr.io/build2:${{ github.sha }}
+ #         docker push radixacr.azurecr.io/build2:${{ github.sha }}
       
       - name: Azure login
         uses: azure/login@v1.4.3
@@ -30,6 +30,7 @@ jobs:
           client-id: d3fadd93-1925-4751-a258-b19813fac92f
           tenant-id: 9ba992e8-0f66-44c5-9141-e2984d1de41e
           subscription-id: 21fd3c88-c8ad-42a5-8d46-03c9e9e93bbb
+          clientSecret: DQl7Q~vDAZsdnk_5FjWLzfD5RwV0EMjhd_mfA
           enable-AzPSSession: "true"
         
       - name: Get K8s context
