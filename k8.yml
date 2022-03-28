@@ -27,11 +27,11 @@ spec:
 ---
 
 apiVersion: apps/v1
-kind: LoadBalancer
+kind: Service
 metadata:
   name: radixservice
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: radixlabel
   ports:
