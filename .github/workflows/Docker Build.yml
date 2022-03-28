@@ -21,8 +21,8 @@ jobs:
           password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
 
       - run: |
-#          docker build . -t radixacr.azurecr.io/build2:${{ github.sha }}
- #         docker push radixacr.azurecr.io/build2:${{ github.sha }}
+          docker build . -t radixacr.azurecr.io/build2:${{ github.sha }}
+          docker push radixacr.azurecr.io/build2:${{ github.sha }}
       
       - name: Az CLI login
         uses: azure/login@v1
