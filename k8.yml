@@ -35,6 +35,4 @@ spec:
   selector:
     app: Radix_Label
   ports:
-  - targetport: 80
-    port: 80
-    nodeport: 30008
+  - port: 80
