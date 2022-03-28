@@ -7,6 +7,12 @@ spec:
   selector:
     matchLabels:
       app: Radix_Label
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 30
   template:
     metadata:
       name: Radix_pod
