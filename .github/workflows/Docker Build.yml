@@ -7,7 +7,9 @@ on:
     branches: [ main ]
 
   workflow_dispatch:
-
+env:
+  PR_NUMBER: ${{ github.event.pull_request.number }}
+  PR_ID: ${{ github.event.pull_request.id}}
 
 jobs:
   build:
@@ -20,7 +22,12 @@ jobs:
           login-server: radixacr.azurecr.io
           username: RadixACR
           password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
-
+      - name: view the PR number
+        run: |
+          echo "PR number = ${{ github.event.pull_request.number }}"
+          echo "PR number = ${{ env.PR_NUMBER }}"
+          echo "PR ID = ${{ github.event.pull_request.id }}"
+          echo "PR ID = ${{ env.PR_ID }}"
       - run: |
 #          docker build . -t radixacr.azurecr.io/build2:${{ github.sha }}
 #          docker push radixacr.azurecr.io/build2:${{ github.sha }}
