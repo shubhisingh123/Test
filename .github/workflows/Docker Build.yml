@@ -7,9 +7,6 @@ on:
     branches: [ main ]
 
   workflow_dispatch:
-env:
-  PR_NUMBER: ${{ github.event.pull_request.number }}
-  PR_ID: ${{ github.event.pull_request.id }}
 
 
 jobs:
@@ -23,11 +20,39 @@ jobs:
           login-server: radixacr.azurecr.io
           username: RadixACR
           password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
+
+      - run: |
+          docker build . -t radixacr.azurecr.io/build2:${{ github.sha }}
+          docker push radixacr.azurecr.io/build2:${{ github.sha }}
+      
+      - name: Az CLI login
+        uses: azure/login@v1
+        with:
+         creds: ${{ secrets.AZURE_CREDENTIAL }}
+       
           
-      - name: view the PR number
-        run: |
-          echo "PR number = ${{ github.event.pull_request.number }}"
-          echo "PR number = ${{ env.PR_NUMBER }}" 
-          echo "PR id = ${{ github.event.pull_request.id }}"
-          echo "PR id = ${{ env.PR_ID }}" 
- 
+        
+      - name: Get K8s context
+        uses: azure/aks-set-context@v2.0
+        with:
+          resource-group: Radix_RG
+          cluster-name: RadixAKS
+          
+      - name: Create K8s secret for pulling image from ACR
+        uses: Azure/k8s-create-secret@v1.1
+        with:
+          container-registry-url: radixacr.azurecr.io
+          container-registry-username: RadixACR
+          container-registry-password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
+          secret-name: radix
+          
+      - name: Deploys application
+        uses: Azure/k8s-deploy@v3.0
+        with:
+          namespace: radixdeploymentpr1
+          action: deploy
+          manifests: k8.yml
+          images: |
+            radixacr.azurecr.io/build2:${{ github.sha }}
+          imagepullsecrets: |
+            radix
