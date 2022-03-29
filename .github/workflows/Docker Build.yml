@@ -22,8 +22,8 @@ jobs:
           password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
 
       - run: |
-          docker build . -t radixacr.azurecr.io/build2:${{ github.sha }}
-          docker push radixacr.azurecr.io/build2:${{ github.sha }}
+#          docker build . -t radixacr.azurecr.io/build2:${{ github.sha }}
+#          docker push radixacr.azurecr.io/build2:${{ github.sha }}
       
       - name: Az CLI login
         uses: azure/login@v1
@@ -32,22 +32,22 @@ jobs:
        
           
         
-      - name: Get K8s context
+#      - name: Get K8s context
         uses: azure/aks-set-context@v2.0
         with:
           resource-group: Radix_RG
           cluster-name: RadixAKS
           
-      - name: Create K8s secret for pulling image from ACR
-        uses: Azure/k8s-create-secret@v1.1
+    #  - name: Create K8s secret for pulling image from ACR
+ #       uses: Azure/k8s-create-secret@v1.1
         with:
           container-registry-url: radixacr.azurecr.io
           container-registry-username: RadixACR
           container-registry-password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
           secret-name: radix
           
-      - name: Deploys application
-        uses: Azure/k8s-deploy@v3.0
+#      - name: Deploys application
+ #       uses: Azure/k8s-deploy@v3.0
         with:
           namespace: radixdeploymentpr1
           action: deploy
