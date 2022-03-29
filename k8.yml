@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: radixappdeployment
-  namespace: radixdeploymentpr1
+  --namespace: radixdeploymentpr1
 spec:
   replicas: 3
   selector:
@@ -18,7 +18,7 @@ spec:
   template:
     metadata:
       name: radixpod
-      namespace: radixdeploymentpr1
+      --namespace: radixdeploymentpr1
       labels:
         app: radixlabel
     spec:
@@ -33,7 +33,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: radixservice
-  namespace: radixdeploymentpr1
+  --namespace: radixdeploymentpr1
 spec:
   type: LoadBalancer
   selector:
