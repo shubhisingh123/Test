@@ -8,7 +8,7 @@ on:
 
   workflow_dispatch:
 env:
-  PR_NUMBER: ${{ github.event.pull_request.number }}
+  PR_NUMBER: ${{ github.event.pull_request.id }}
  
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
           password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
       - name: view the PR number
         run: |
-          echo "PR number = ${{ github.event.pull_request.number }}"
+          echo "PR number = ${{ github.event.pull_request.id }}"
           echo "PR number = ${{ env.PR_NUMBER }}"
 
       - run: |
@@ -54,5 +54,5 @@ jobs:
           
       - name: Deploys application
         run: |
-          kubectl create namespace radix-ns
-          kubectl apply -f k8.yml -n radix-ns
+          kubectl create namespace radix-${{ env.PR_NUMBER }}
+          kubectl apply -f k8.yml -n radix-${{ env.PR_NUMBER }}
