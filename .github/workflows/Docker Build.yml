@@ -62,7 +62,7 @@ jobs:
       - name: code for making namespace in aks
         uses: Azure/k8s-deploy@v3.0
         with:
-          namespace: shubham-singh
+          namespace: radix-${{ env.PR_ID }}
           action: deploy
           manifests: k8.yml
           images: |
