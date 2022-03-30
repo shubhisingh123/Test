@@ -28,9 +28,6 @@ spec:
 ---
 
 apiVersion: v1
-kind: Namespace 
-metadata:
-  name: radix-namespace
 kind: Service
 metadata:
   name: radixservice
