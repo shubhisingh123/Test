@@ -8,7 +8,7 @@ on:
 
   workflow_dispatch:
 env:
-  PR_NUMBER: ${{ github.event.pull_request.number }}
+  PR_ID: ${{ github.event.pull_request.id }}
  
 
 jobs:
@@ -24,12 +24,12 @@ jobs:
           password: Q0qTKyA6jeURTF5/Q2tjiIWM2PXdHZdR
       - name: view the PR number
         run: |
-          echo "PR number = ${{ github.event.pull_request.number }}"
-          echo "PR number = ${{ env.PR_NUMBER }}"
+          echo "PR number = ${{ github.event.pull_request.id }}"
+          echo "PR number = ${{ env.PR_ID }}"
 
       - run: |
-          docker build . -t radixacr.azurecr.io/build2:${{ env.PR_NUMBER }}
-          docker push radixacr.azurecr.io/build2:${{ env.PR_NUMBER }}
+          docker build . -t radixacr.azurecr.io/radix:${{ env.PR_ID }}
+          docker push radixacr.azurecr.io/radix:${{ env.PR_ID }}
       
       - name: Az CLI login
         uses: azure/login@v1
@@ -54,5 +54,16 @@ jobs:
           
       - name: Deploys application
         run: |
-          kubectl create namespace radix-ns
-          kubectl apply -f k8.yml -n radix-ns
+          kubectl create namespace radix-${{ env.PR_ID }}
+          
+      - name: code for making namespace in aks
+        uses: Azure/k8s-deploy@v3.0
+        with:
+          namespace: radix-${{ env.PR_ID }}
+          action: deploy
+          manifests: k8.yml
+          images: |
+            radixacr.azurecr.io/radix:${{ env.PR_ID }}
+          imagepullsecrets: |
+            radix
+
