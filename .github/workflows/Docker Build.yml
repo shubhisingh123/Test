@@ -47,4 +47,6 @@ jobs:
           secret-name: radix
           
       - name: Deploys application
-        run: kubectl apply -f k8.yml
+        run: |
+          kubectl create namespace radix-ns
+          kubectl apply -f k8.yml
