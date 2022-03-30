@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: radixcontainer
-        image: "radixacr.azurecr.io/radix:894381427"
+        image: radixacr.azurecr.io/radix:${{ env.PR_ID }}
         ports:
         - containerPort: 8080
 ---
