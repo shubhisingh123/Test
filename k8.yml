@@ -20,11 +20,11 @@ spec:
       labels:
         app: radixlabel
     spec:
-     # containers:
-      #- name: radixcontainer
-#        image: "radixacr.azurecr.io/build2:77fbbebc83c3ac2da4046cdd35fa108116d5f595"
-    #    ports:
-     #   - containerPort: 8080
+      containers:
+      - name: radixcontainer
+        image: "radixacr.azurecr.io/build2:77fbbebc83c3ac2da4046cdd35fa108116d5f595"
+        ports:
+        - containerPort: 8080
 ---
 
 apiVersion: v1
