@@ -28,8 +28,8 @@ jobs:
           echo "PR number = ${{ env.PR_ID }}"
 
       - run: |
-          docker build . -t radixacr.azurecr.io/build2:$PR_ID
-          docker push radixacr.azurecr.io/build2:$PR_ID
+          docker build . -t radixacr.azurecr.io/build2:${{env.PR_ID}}
+          docker push radixacr.azurecr.io/build2:${{env.PR_ID}}
       
       - name: Az CLI login
         uses: azure/login@v1
