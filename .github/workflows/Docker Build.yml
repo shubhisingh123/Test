@@ -28,8 +28,8 @@ jobs:
           echo "PR number = ${{ env.PR_ID }}"
 
       - run: |
-          docker build . -t radixacr.azurecr.io/build2:${{ env.PR_ID }}
-          docker push radixacr.azurecr.io/build2:${{ env.PR_ID }}
+          docker build . -t radixacr.azurecr.io/radix:${{ env.PR_ID }}
+          docker push radixacr.azurecr.io/radix:${{ env.PR_ID }}
       
       - name: Az CLI login
         uses: azure/login@v1
@@ -54,15 +54,16 @@ jobs:
           
       - name: Deploys application
         run: |
-          kubectl create namespace radix-${{ env.PR_NUMBER }}
+          kubectl create namespace radix-${{ env.PR_ID }}
+          
       - name: code for making namespace in aks
         uses: Azure/k8s-deploy@v3.0
         with:
-          #namespace: radixdeploymentpr1
+          namespace: radix-${{ env.PR_ID }}
           action: deploy
           manifests: k8.yml
           images: |
-            radixacr.azurecr.io/build2:${{ env.PR_NUMBER }}
+            radixacr.azurecr.io/radix:${{ env.PR_ID }}
           imagepullsecrets: |
             radix
 
