@@ -49,4 +49,4 @@ jobs:
       - name: Deploys application
         run: |
           kubectl create namespace radix-ns
-          kubectl apply -f k8.yml
+          kubectl apply -f k8.yml -n radix-ns
